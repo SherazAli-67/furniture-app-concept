@@ -25,8 +25,39 @@ class ProductItemWidget extends StatelessWidget{
                 color: AppColors.productBgGreyColor,
                 borderRadius: .circular(12)
             ),
-            padding: .symmetric(horizontal: 20, vertical: 10),
-            child: Image.asset(product.productImg, height: 100,width: 145,),
+            child: Stack(
+              children: [
+                Padding(
+                    padding: .symmetric(horizontal: 20, vertical: 10),
+                    child: Hero(
+                        tag: product.id,
+                        child: Image.asset(product.productImg, height: 100,width: 145,))),
+
+                if(product.isNew)
+                  Positioned(
+                    bottom: 5,
+                    left: 5,
+                    child: Container(
+                        decoration: BoxDecoration(color: Colors.red, borderRadius: .circular(99)),
+                        padding: .symmetric(horizontal: 5, vertical: 2.5),
+                        child: Text('New', style: AppTextStyles.smallTextStyle.copyWith(fontSize: 10, color: Colors.white),)),),
+
+                Positioned(
+                  bottom: 5,
+                  right: 5,
+                  child: Container(
+                      decoration: BoxDecoration(color: AppColors.ratingBgColor, borderRadius: .circular(99)),
+                      padding: .symmetric(horizontal: 5, vertical: 2.5),
+                      child: Row(
+                        spacing: 3,
+                        children: [
+                          Icon(Icons.star_rate_rounded, color: AppColors.ratingAmberColor, size: 10,),
+                          Text('4.8', style: AppTextStyles.smallTextStyle.copyWith(fontSize: 10, color: AppColors.ratingAmberColor),)
+                        ],
+                      )
+                  ),),
+              ],
+            ),
           ),
           Column(
             crossAxisAlignment: .start,

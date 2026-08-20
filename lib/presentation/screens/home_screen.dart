@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
       padding: .symmetric(horizontal: 25, vertical: 30),
       child: Column(
         spacing: 24,
@@ -39,7 +39,8 @@ class HomeScreen extends StatelessWidget {
                 child: ListView.separated(
                     scrollDirection: .horizontal,
                     itemBuilder: (ctx, index)=> ProductItemWidget(product: AppData.homeProducts[index],), separatorBuilder: (ctx, index) => const SizedBox(width: 21,), itemCount: AppData.homeProducts.length),
-              )
+              ),
+              Text("Best Seller", style: AppTextStyles.headingTextStyle.copyWith(fontSize: 20, color: AppColors.primaryColor),)
             ],
           )
         ],

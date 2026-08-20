@@ -9,4 +9,6 @@ class AppColors {
   static const strokeColor = Color(0xffCFCFCF);
   static const categoryBgColor = Color(0xffF2F2F2);
   static const productBgGreyColor = Color(0xffE3E3E3);
+  static const ratingAmberColor = Color(0xffF4BB00);
+  static const ratingBgColor = Color(0xffFFF0BA);
 }
