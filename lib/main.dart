@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constants/string_const.dart';
+import 'package:furniture_app/core/app_colors.dart';
 import 'package:furniture_app/router/app_router.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: StringConst.appTitle,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: AppColors.lightWhiteColor,
         fontFamily: StringConst.appFontFamily,
       ),
       routerConfig: router,
