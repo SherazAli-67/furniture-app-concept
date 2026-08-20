@@ -12,5 +12,11 @@ class AppIcons {
 
   //pngs
   static const onboardingImg = '${iconsPath}onboarding.png';
+  static const modernChair = '${iconsPath}modern_chair.png';
+  static const minimalistChair = '${iconsPath}minimalist_chair.png';
+  static const yellowChair = '${iconsPath}yellow_chair.png';
+  static const brownChair = '${iconsPath}brown_chair.png';
+
+  static const devProfileImg = '${iconsPath}dev.jpeg';
 
 }

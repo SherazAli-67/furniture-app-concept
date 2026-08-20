@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:furniture_app/presentation/screens/home_screen.dart';
 import 'package:furniture_app/presentation/screens/main_menu_page.dart';
 import 'package:furniture_app/presentation/screens/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ GoRouter router = GoRouter(
           GoRoute(path: NamedRoutes.favorite.routeName, builder: (_, _)=> Center(child: Text("Favorites"),))
         ]),
         StatefulShellBranch(routes: [
-          GoRoute(path: NamedRoutes.home.routeName, builder: (_, _)=> Center(child: Text("Home"),))
+          GoRoute(path: NamedRoutes.home.routeName, builder: (_, _)=> HomeScreen())
         ]),
         StatefulShellBranch(routes: [
           GoRoute(path: NamedRoutes.cart.routeName, builder: (_, _)=> Center(child: Text("Cart"),))
