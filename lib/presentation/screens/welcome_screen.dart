@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/core/app_colors.dart';
 import 'package:furniture_app/core/app_icons.dart';
 import 'package:furniture_app/core/app_textstyles.dart';
+import 'package:furniture_app/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import '../widgets/primary_btn.dart';
 
 class WelcomeScreen extends StatelessWidget{
@@ -25,7 +27,7 @@ class WelcomeScreen extends StatelessWidget{
                   Text("Browser through all categories and shop the best furniture for your dream house", style: AppTextStyles.regularTextStyle.copyWith(color: AppColors.textGreyColor),),
                   SizedBox(
                     width: .infinity,
-                    child: PrimaryBtn(btnText: 'Get Started',),
+                    child: PrimaryBtn(btnText: 'Get Started', onTap: ()=> context.push(NamedRoutes.home.routeName),),
                   )
                 ],
               ),
