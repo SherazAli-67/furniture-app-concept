@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:furniture_app/core/app_textstyles.dart';
 import 'package:furniture_app/core/models/cart_item_model.dart';
+import 'package:furniture_app/presentation/widgets/primary_btn.dart';
 import 'package:furniture_app/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<String> _selectedCheckoutProducts = [];
+  final List<String> _selectedCheckoutProducts = [];
 
 
   @override
@@ -32,7 +33,23 @@ class _CartScreenState extends State<CartScreen> {
             IconButton(onPressed: ()=> Navigator.pop(context), icon: Icon(Icons.delete, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
           ],
         ),
-        Expanded(child: ListView.separated(itemBuilder: (ctx, index)=> _buildCartItemWidget(provider.cartItems[index]), separatorBuilder: (_, _) => const SizedBox(height: 20,), itemCount: provider.cartItems.length))
+        Expanded(child: ListView.separated(itemBuilder: (ctx, index)=> _buildCartItemWidget(provider.cartItems[index]), separatorBuilder: (_, _) => const SizedBox(height: 20,), itemCount: provider.cartItems.length)),
+        Column(
+          spacing: 15,
+          children: [
+            Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                Text('Total (${_selectedCheckoutProducts.length} ${_selectedCheckoutProducts.length > 1 ? 'Items' : 'Item'})', style: AppTextStyles.btnTextStyle.copyWith(color: AppColors.textGreyColor),),
+                Text(provider.getTotalPrice(), style: AppTextStyles.headingTextStyle.copyWith(fontSize: 20, color: AppColors.primaryColor),)
+              ],
+            ),
+            SizedBox(
+              width: .infinity,
+              child: PrimaryBtn(btnText: "Proceed to checkout"),
+            )
+          ],
+        )
       ]),
     );
   }
