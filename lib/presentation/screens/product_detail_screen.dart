@@ -10,7 +10,6 @@ import '../../core/app_colors.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key, required this.product});
-
   final ProductModel product;
 
   @override
