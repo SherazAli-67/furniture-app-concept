@@ -3,6 +3,7 @@ import 'package:furniture_app/core/app_colors.dart';
 import 'package:furniture_app/core/app_data.dart';
 import 'package:furniture_app/core/app_icons.dart';
 import 'package:furniture_app/core/app_textstyles.dart';
+import 'package:furniture_app/presentation/widgets/best_seller_product_item_widget.dart';
 import 'package:furniture_app/presentation/widgets/product_item_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -40,7 +41,14 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: .horizontal,
                     itemBuilder: (ctx, index)=> ProductItemWidget(product: AppData.homeProducts[index],), separatorBuilder: (ctx, index) => const SizedBox(width: 21,), itemCount: AppData.homeProducts.length),
               ),
-              Text("Best Seller", style: AppTextStyles.headingTextStyle.copyWith(fontSize: 20, color: AppColors.primaryColor),)
+              Text("Best Seller", style: AppTextStyles.headingTextStyle.copyWith(fontSize: 20, color: AppColors.primaryColor),),
+              SizedBox(
+                height: 110,
+                width: .infinity,
+                child: ListView.separated(
+                    scrollDirection: .horizontal,
+                    itemBuilder: (ctx, index)=> BestSellerProductItemWidget(product: AppData.bestSellerProducts[index],), separatorBuilder: (ctx, index) => const SizedBox(width: 17,), itemCount: AppData.bestSellerProducts.length),
+              ),
             ],
           )
         ],

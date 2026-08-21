@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:furniture_app/core/models/product_model.dart';
 import 'package:furniture_app/presentation/screens/home_screen.dart';
 import 'package:furniture_app/presentation/screens/main_menu_page.dart';
+import 'package:furniture_app/presentation/screens/product_detail_screen.dart';
 import 'package:furniture_app/presentation/screens/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,7 +10,8 @@ GoRouter router = GoRouter(
     initialLocation: NamedRoutes.home.routeName,
     routes: [
       GoRoute(path: NamedRoutes.welcome.routeName, builder: (ctx, state) => WelcomeScreen()),
-      StatefulShellRoute.indexedStack(branches: [
+      StatefulShellRoute.indexedStack(
+          branches: [
         StatefulShellBranch(routes: [
           GoRoute(path: NamedRoutes.notifications.routeName, builder: (_, _)=> Center(child: Text("Notifications"),))
         ]),
@@ -26,7 +29,9 @@ GoRouter router = GoRouter(
         ]),
 
       ],
-          builder: (ctx, state, navigationShell) => MainMenuPage(navigationShell: navigationShell))
+          builder: (ctx, state, navigationShell) => MainMenuPage(navigationShell: navigationShell)),
+
+      GoRoute(path: NamedRoutes.productDetail.routeName, builder: (ctx, state) => ProductDetailScreen(product: state.extra as ProductModel)),
     ],
 );
 
@@ -37,6 +42,7 @@ enum NamedRoutes {
   home('/home'),
   cart('/cart'),
   profile('/profile'),
+  productDetail('/product-detail')
   ;
 
   final String routeName;
