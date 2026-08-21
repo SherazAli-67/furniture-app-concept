@@ -9,6 +9,7 @@ class AppIcons {
   static const icFavorite = '${iconsPath}ic_favorite.svg';
   static const icProfile = '${iconsPath}ic_profile.svg';
   static const icProfileSelected = '${iconsPath}ic_profile_selected.svg';
+  static const icCamera = '${iconsPath}ic_camera.svg';
 
   //pngs
   static const onboardingImg = '${iconsPath}onboarding.png';

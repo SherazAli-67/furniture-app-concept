@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
                 child: ListView.separated(
                     scrollDirection: .horizontal,
                     itemBuilder: (ctx, index)=> Consumer<HomeProvider>(
-                      builder: (_, provider, _) => _buildCategoryItemWidget(category: AppData.categories[index], isSelected: provider.selectedTabIndex == index)
+                      builder: (_, provider, _) => _buildCategoryItemWidget(category: AppData.categories[index], isSelected: provider.selectedTabIndex == index, onTap: ()=> provider..onTabTap(index))
                     ), separatorBuilder: (ctx, index) => const SizedBox(width: 10,), itemCount: AppData.categories.length),
               ),
               SizedBox(
@@ -93,15 +93,18 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryItemWidget({required String category, required bool isSelected}) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: .circular(99),
-        color: isSelected ? AppColors.primaryColor : AppColors.categoryBgColor
+  Widget _buildCategoryItemWidget({required String category, required bool isSelected, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: .circular(99),
+          color: isSelected ? AppColors.primaryColor : AppColors.categoryBgColor
+        ),
+        padding: .symmetric(horizontal: 21,),
+        alignment: .center,
+        child: Text(category, style: AppTextStyles.btnTextStyle.copyWith(fontSize: 16, fontWeight: .w600, color: isSelected ? Colors.white : AppColors.primaryColor),),
       ),
-      padding: .symmetric(horizontal: 21,),
-      alignment: .center,
-      child: Text(category, style: AppTextStyles.btnTextStyle.copyWith(fontSize: 16, fontWeight: .w600, color: isSelected ? Colors.white : AppColors.primaryColor),),
     );
   }
 }

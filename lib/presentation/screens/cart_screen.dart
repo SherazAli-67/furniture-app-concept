@@ -4,6 +4,8 @@ import 'package:furniture_app/core/app_textstyles.dart';
 import 'package:furniture_app/core/models/cart_item_model.dart';
 import 'package:furniture_app/presentation/widgets/primary_btn.dart';
 import 'package:furniture_app/providers/cart_provider.dart';
+import 'package:furniture_app/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/app_colors.dart';
@@ -33,7 +35,7 @@ class _CartScreenState extends State<CartScreen> {
             IconButton(onPressed: ()=> Navigator.pop(context), icon: Icon(Icons.delete, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
           ],
         ),
-        Expanded(child: ListView.separated(itemBuilder: (ctx, index)=> _buildCartItemWidget(provider.cartItems[index]), separatorBuilder: (_, _) => const SizedBox(height: 20,), itemCount: provider.cartItems.length)),
+        Expanded(child: ListView.separated(itemBuilder: (ctx, index)=> _buildCartItemWidget(index, provider), separatorBuilder: (_, _) => const SizedBox(height: 20,), itemCount: provider.cartItems.length)),
         Column(
           spacing: 15,
           children: [
@@ -54,76 +56,86 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _buildCartItemWidget(CartItemModel cartItem){
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: .circular(12)
-      ),
-      padding: .symmetric(horizontal: 15, vertical: 8),
-      child: Row(
-        children: [
-          Checkbox(value: _selectedCheckoutProducts.contains(cartItem.id), onChanged: (val) => _toggleSelected(val, cartItem.id), checkColor: Colors.white, fillColor: WidgetStatePropertyAll(_selectedCheckoutProducts.contains(cartItem.id) ? AppColors.primaryColor : Colors.transparent)),
-          Expanded(child: Row(
-            spacing: 10,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.productBgGreyColor,
-                  borderRadius: .circular(12)
+  Widget _buildCartItemWidget(int index, CartProvider provider){
+    CartItemModel cartItem = provider.cartItems[index];
+    return GestureDetector(
+      onTap: ()=> context.push(NamedRoutes.productDetail.routeName, extra: cartItem.product),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: .circular(12)
+        ),
+        padding: .symmetric(horizontal: 15, vertical: 8),
+        child: Row(
+          children: [
+            Checkbox(value: _selectedCheckoutProducts.contains(cartItem.id), onChanged: (val) => _toggleSelected(val, cartItem.id), checkColor: Colors.white, fillColor: WidgetStatePropertyAll(_selectedCheckoutProducts.contains(cartItem.id) ? AppColors.primaryColor : Colors.transparent)),
+            Expanded(child: Row(
+              spacing: 10,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.productBgGreyColor,
+                    borderRadius: .circular(12)
+                  ),
+                  height: 90,
+                  width: 100,
+                  padding: .all(8),
+                  child: Image.asset(cartItem.product.productImg),
                 ),
-                height: 90,
-                width: 100,
-                padding: .all(8),
-                child: Image.asset(cartItem.product.productImg),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: .start,
-                  children: [
-                    Text(cartItem.product.title, style: AppTextStyles.btnTextStyle.copyWith(fontWeight: .w600),),
-                    Text(cartItem.product.type, style: AppTextStyles.smallTextStyle.copyWith(color: AppColors.unSelectedItemColor),),
-                    Row(
-                      spacing: 18,
-                      mainAxisAlignment: .spaceBetween,
-                      children: [
-                        Text('\$${cartItem.product.price}', style: AppTextStyles.btnTextStyle.copyWith(fontWeight: .w600),),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: .circular(99),
-                              color: AppColors.unSelectedItemColor
-                          ),
-                          padding: .all(2),
-                          child: Row(
-                            spacing: 8,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    shape: .circle,
-                                    color: Colors.white
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: .start,
+                    children: [
+                      Text(cartItem.product.title, style: AppTextStyles.btnTextStyle.copyWith(fontWeight: .w600),),
+                      Text(cartItem.product.type, style: AppTextStyles.smallTextStyle.copyWith(color: AppColors.unSelectedItemColor),),
+                      Row(
+                        spacing: 18,
+                        mainAxisAlignment: .spaceBetween,
+                        children: [
+                          Text('\$${cartItem.product.price}', style: AppTextStyles.btnTextStyle.copyWith(fontWeight: .w600),),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: .circular(99),
+                                color: AppColors.unSelectedItemColor
+                            ),
+                            padding: .all(2),
+                            child: Row(
+                              spacing: 8,
+                              children: [
+                                GestureDetector(
+                                  onTap: ()=> provider.addItemToCart(cartItem.product),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        shape: .circle,
+                                        color: Colors.white
+                                    ),
+                                    child: Icon(Icons.add_rounded, color: AppColors.primaryColor, size: 15,),
+                                  ),
                                 ),
-                                child: Icon(Icons.add_rounded, color: AppColors.primaryColor, size: 15,),
-                              ),
-                              Text('1', style: AppTextStyles.smallTextStyle.copyWith(color: AppColors.primaryColor, fontWeight: .bold),),
-                              Container(
-                                decoration: BoxDecoration(
-                                    shape: .circle,
-                                    color: Colors.white
+                                Text(cartItem.quantity.toString(), style: AppTextStyles.smallTextStyle.copyWith(color: AppColors.primaryColor, fontWeight: .bold),),
+                                GestureDetector(
+                                  onTap: ()=> provider.onDecreaseQuantityTap(productID: cartItem.product.id),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        shape: .circle,
+                                        color: Colors.white
+                                    ),
+                                    child: Icon(Icons.remove, color: AppColors.primaryColor, size: 15,),
+                                  ),
                                 ),
-                                child: Icon(Icons.remove, color: AppColors.primaryColor, size: 15,),
-                              ),
 
-                            ],
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ))
-        ],
+              ],
+            ))
+          ],
+        ),
       ),
     );
   }

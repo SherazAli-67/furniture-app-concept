@@ -4,13 +4,14 @@ import 'package:furniture_app/presentation/screens/cart_screen.dart';
 import 'package:furniture_app/presentation/screens/home_screen.dart';
 import 'package:furniture_app/presentation/screens/main_menu_page.dart';
 import 'package:furniture_app/presentation/screens/product_detail_screen.dart';
+import 'package:furniture_app/presentation/screens/profile_screen.dart';
 import 'package:furniture_app/presentation/screens/welcome_screen.dart';
 import 'package:furniture_app/providers/home_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 GoRouter router = GoRouter(
-    initialLocation: NamedRoutes.home.routeName,
+    initialLocation: NamedRoutes.welcome.routeName,
     routes: [
       GoRoute(path: NamedRoutes.welcome.routeName, builder: (ctx, state) => WelcomeScreen()),
       StatefulShellRoute.indexedStack(
@@ -31,7 +32,7 @@ GoRouter router = GoRouter(
           GoRoute(path: NamedRoutes.cart.routeName, builder: (_, _)=> CartScreen())
         ]),
         StatefulShellBranch(routes: [
-          GoRoute(path: NamedRoutes.profile.routeName, builder: (_, _)=> Center(child: Text("Profile"),))
+          GoRoute(path: NamedRoutes.profile.routeName, builder: (_, _)=> ProfileScreen())
         ]),
 
       ],
