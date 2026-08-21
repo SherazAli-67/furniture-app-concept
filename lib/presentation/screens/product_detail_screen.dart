@@ -5,6 +5,8 @@ import 'package:furniture_app/core/app_textstyles.dart';
 import 'package:furniture_app/core/models/product_model.dart';
 import 'package:furniture_app/presentation/widgets/primary_btn.dart';
 import 'package:furniture_app/presentation/widgets/product_rating_widget.dart';
+import 'package:furniture_app/providers/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/app_colors.dart';
 
@@ -14,6 +16,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CartProvider>(context);
     return Scaffold(
       body: Column(
         children: [
@@ -25,7 +28,6 @@ class ProductDetailScreen extends StatelessWidget {
               padding: .only(top: 60),
               width: .infinity,
               child: Hero(tag: product.id, child: Image.asset(product.productImg, ),)),),
-
           Expanded(child: Padding(
             padding: const .all(30),
             child: Column(
@@ -113,7 +115,7 @@ class ProductDetailScreen extends StatelessWidget {
                 const Spacer(),
                 SizedBox(
                   width: .infinity,
-                  child: PrimaryBtn(btnText: "Add to cart"),
+                  child: PrimaryBtn(btnText: provider.isProductInCart(product.id) ? "Already in cart" : "Add to cart"),
                 )
               ],
             ),

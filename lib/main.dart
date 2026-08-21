@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:furniture_app/constants/string_const.dart';
 import 'package:furniture_app/core/app_colors.dart';
+import 'package:furniture_app/providers/cart_provider.dart';
 import 'package:furniture_app/router/app_router.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(create: (_) => CartProvider(), child: const MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(

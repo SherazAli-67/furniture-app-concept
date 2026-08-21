@@ -5,7 +5,7 @@ import '../core/models/product_model.dart';
 class CartProvider extends ChangeNotifier{
   List<CartItemModel> cartItems = [];
 
-  List<String> get _cartItemPlantIds => cartItems.map((cartItem) => cartItem.product.id).toList();
+  List<String> get _cartItemProductIds => cartItems.map((cartItem) => cartItem.product.id).toList();
 
   CartItemModel? _getCartItemByProductID(String id){
     for (var cartItem in cartItems) {
@@ -16,14 +16,14 @@ class CartProvider extends ChangeNotifier{
     return null;
   }
 
-  void addItemToCart(ProductModel plant){
-    if(_cartItemPlantIds.contains(plant.id)){
-      int index = cartItems.indexWhere((cartItem) => cartItem.product.id == plant.id);
+  void addItemToCart(ProductModel product){
+    if(_cartItemProductIds.contains(product.id)){
+      int index = cartItems.indexWhere((cartItem) => cartItem.product.id == product.id);
       CartItemModel cartItem = cartItems[index];
       final updatedCartItem  = cartItem.copyWith(quantity: cartItem.quantity+1);
       cartItems[index] = updatedCartItem;
     }else{
-      cartItems.add(CartItemModel(id: DateTime.now().toIso8601String(), product: plant, quantity: 1));
+      cartItems.add(CartItemModel(id: DateTime.now().toIso8601String(), product: product, quantity: 1));
     }
     notifyListeners();
   }
@@ -36,8 +36,8 @@ class CartProvider extends ChangeNotifier{
    return '\$${total.toStringAsFixed(2)}';
   }
 
-  void onDecreaseQuantityTap({required String plantID}){
-    CartItemModel? cartItem = _getCartItemByProductID(plantID);
+  void onDecreaseQuantityTap({required String productID}){
+    CartItemModel? cartItem = _getCartItemByProductID(productID);
     if(cartItem != null){
       if(cartItem.quantity == 1){
         return;
@@ -50,21 +50,24 @@ class CartProvider extends ChangeNotifier{
   }
 
   int getCartItemQuantityByPlanID(String id) {
-    if(_cartItemPlantIds.contains(id)){
+    if(_cartItemProductIds.contains(id)){
       CartItemModel cartItem = _getCartItemByProductID(id)!;
       return cartItem.quantity;
-      // return cartItem.quantity < 10 ? '0${cartItem.quantity}' : cartItem.quantity.toString();
     }else{
       return 0;
     }
   }
 
   String getFormattedCartItemQuantityByPlanID(String id) {
-    if(_cartItemPlantIds.contains(id)){
+    if(_cartItemProductIds.contains(id)){
       CartItemModel cartItem = _getCartItemByProductID(id)!;
       return cartItem.quantity < 10 ? '0${cartItem.quantity}' : cartItem.quantity.toString();
     }else{
       return '00';
     }
+  }
+
+  bool isProductInCart(String productID){
+    return _cartItemProductIds.contains(productID);
   }
 }

@@ -3,7 +3,9 @@ import 'package:furniture_app/core/app_colors.dart';
 import 'package:furniture_app/core/app_textstyles.dart';
 import 'package:furniture_app/core/models/product_model.dart';
 import 'package:furniture_app/presentation/widgets/product_rating_widget.dart';
+import 'package:furniture_app/providers/cart_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../router/app_router.dart';
 
@@ -12,6 +14,7 @@ class ProductItemWidget extends StatelessWidget{
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CartProvider>(context);
     return GestureDetector(
       onTap: ()=> context.push(NamedRoutes.productDetail.routeName, extra: product),
       child: Container(
@@ -73,7 +76,7 @@ class ProductItemWidget extends StatelessWidget{
                     shape: .circle
                   ),
                   padding: .all(5),
-                  child: GestureDetector(onTap: (){}, child: Icon(Icons.add_rounded, color: Colors.white)),
+                  child: GestureDetector(onTap: provider.isProductInCart(product.id) ? null : ()=> provider.addItemToCart(product), child: provider.isProductInCart(product.id) ? Icon(Icons.done, color: Colors.white,) : Icon(Icons.add_rounded, color: Colors.white)),
                 )
               ],
             )
