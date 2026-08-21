@@ -6,6 +6,7 @@ import 'package:furniture_app/core/models/product_model.dart';
 import 'package:furniture_app/presentation/widgets/primary_btn.dart';
 import 'package:furniture_app/presentation/widgets/product_rating_widget.dart';
 import 'package:furniture_app/providers/cart_provider.dart';
+import 'package:furniture_app/providers/favorites_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/app_colors.dart';
@@ -32,12 +33,14 @@ class ProductDetailScreen extends StatelessWidget {
                   Positioned(
                     top: 0,
                     left: 10,
-                    child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
+                    child: IconButton(onPressed: ()=> Navigator.pop(context), icon: Icon(Icons.arrow_back, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
                   ),
                   Positioned(
                       top: 0,
                       right: 10,
-                      child: IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border_rounded, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
+                      child: Consumer<FavoritesProvider>(builder: (_, provider, _){
+                        return IconButton(onPressed: ()=> provider.toggleFavorites(product: product), icon: Icon( provider.isFavorite(product.id) ? Icons.favorite : Icons.favorite_border_rounded, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),);
+                      })
                   ),
 
                 ],
@@ -129,7 +132,7 @@ class ProductDetailScreen extends StatelessWidget {
                 const Spacer(),
                 SizedBox(
                   width: .infinity,
-                  child: PrimaryBtn(btnText: provider.isProductInCart(product.id) ? "Already in cart" : "Add to cart"),
+                  child: PrimaryBtn(btnText: provider.isProductInCart(product.id) ? "Already in cart" : "Add to cart", onTap: ()=> provider.addItemToCart(product),),
                 )
               ],
             ),

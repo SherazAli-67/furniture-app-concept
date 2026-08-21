@@ -11,7 +11,7 @@ class FavoritesProvider extends ChangeNotifier{
 
   void toggleFavorites({required ProductModel product}){
     if(_favoriteProductIds.contains(product.id)){
-      favorites.remove(product);
+      favorites.removeWhere((item) => item.id == product.id);
     }else{
       favorites.add(product);
     }
