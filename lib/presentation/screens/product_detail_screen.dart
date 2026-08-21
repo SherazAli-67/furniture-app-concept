@@ -20,14 +20,28 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(child: Container(
-              decoration: BoxDecoration(
-                  color: AppColors.productBgGreyColor,
-                  borderRadius: .circular(12)
-              ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(color: AppColors.productBgGreyColor, borderRadius: .circular(12)),
               padding: .only(top: 60),
               width: .infinity,
-              child: Hero(tag: product.id, child: Image.asset(product.productImg, ),)),),
+              child: Stack(
+                alignment: .center,
+                children: [
+                  Hero(tag: product.id, child: Image.asset(product.productImg,),),
+                  Positioned(
+                    top: 0,
+                    left: 10,
+                    child: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
+                  ),
+                  Positioned(
+                      top: 0,
+                      right: 10,
+                      child: IconButton(onPressed: (){}, icon: Icon(Icons.favorite_border_rounded, size: 20, color: AppColors.primaryColor,), style: IconButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: .circular(100),), alignment: .center),)
+                  ),
+
+                ],
+              )),),
           Expanded(child: Padding(
             padding: const .all(30),
             child: Column(
