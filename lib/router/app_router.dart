@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:furniture_app/core/models/product_model.dart';
+import 'package:furniture_app/presentation/screens/cart_screen.dart';
 import 'package:furniture_app/presentation/screens/home_screen.dart';
 import 'package:furniture_app/presentation/screens/main_menu_page.dart';
 import 'package:furniture_app/presentation/screens/product_detail_screen.dart';
@@ -27,7 +28,7 @@ GoRouter router = GoRouter(
           ))
         ]),
         StatefulShellBranch(routes: [
-          GoRoute(path: NamedRoutes.cart.routeName, builder: (_, _)=> Center(child: Text("Cart"),))
+          GoRoute(path: NamedRoutes.cart.routeName, builder: (_, _)=> CartScreen())
         ]),
         StatefulShellBranch(routes: [
           GoRoute(path: NamedRoutes.profile.routeName, builder: (_, _)=> Center(child: Text("Profile"),))
