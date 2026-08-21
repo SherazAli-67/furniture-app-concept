@@ -11,4 +11,7 @@ class AppColors {
   static const productBgGreyColor = Color(0xffE3E3E3);
   static const ratingAmberColor = Color(0xffF4BB00);
   static const ratingBgColor = Color(0xffFFF0BA);
+  static const blueGreyColor = Color(0xff708483);
+  static const brownColor = Color(0xff626060);
+  static const redColor = Color(0xffFF3434);
 }
