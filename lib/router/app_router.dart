@@ -4,7 +4,9 @@ import 'package:furniture_app/presentation/screens/home_screen.dart';
 import 'package:furniture_app/presentation/screens/main_menu_page.dart';
 import 'package:furniture_app/presentation/screens/product_detail_screen.dart';
 import 'package:furniture_app/presentation/screens/welcome_screen.dart';
+import 'package:furniture_app/providers/home_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 GoRouter router = GoRouter(
     initialLocation: NamedRoutes.home.routeName,
@@ -19,7 +21,10 @@ GoRouter router = GoRouter(
           GoRoute(path: NamedRoutes.favorite.routeName, builder: (_, _)=> Center(child: Text("Favorites"),))
         ]),
         StatefulShellBranch(routes: [
-          GoRoute(path: NamedRoutes.home.routeName, builder: (_, _)=> HomeScreen())
+          GoRoute(path: NamedRoutes.home.routeName, builder: (_, _)=> ChangeNotifierProvider(
+            create: (_)=> HomeProvider(),
+            builder: (context, state) => HomeScreen()
+          ))
         ]),
         StatefulShellBranch(routes: [
           GoRoute(path: NamedRoutes.cart.routeName, builder: (_, _)=> Center(child: Text("Cart"),))

@@ -5,6 +5,8 @@ import 'package:furniture_app/core/app_icons.dart';
 import 'package:furniture_app/core/app_textstyles.dart';
 import 'package:furniture_app/presentation/widgets/best_seller_product_item_widget.dart';
 import 'package:furniture_app/presentation/widgets/product_item_widget.dart';
+import 'package:furniture_app/providers/home_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,7 +34,9 @@ class HomeScreen extends StatelessWidget {
                 height: 35,
                 child: ListView.separated(
                     scrollDirection: .horizontal,
-                    itemBuilder: (ctx, index)=> _buildCategoryItemWidget(category: AppData.categories[index]), separatorBuilder: (ctx, index) => const SizedBox(width: 10,), itemCount: AppData.categories.length),
+                    itemBuilder: (ctx, index)=> Consumer<HomeProvider>(
+                      builder: (_, provider, _) => _buildCategoryItemWidget(category: AppData.categories[index], isSelected: provider.selectedTabIndex == index)
+                    ), separatorBuilder: (ctx, index) => const SizedBox(width: 10,), itemCount: AppData.categories.length),
               ),
               SizedBox(
                 height: 240,
@@ -89,14 +93,15 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryItemWidget({required String category}) {
+  Widget _buildCategoryItemWidget({required String category, required bool isSelected}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: .circular(99),
-        color: AppColors.categoryBgColor
+        color: isSelected ? AppColors.primaryColor : AppColors.categoryBgColor
       ),
-      padding: .symmetric(horizontal: 21, vertical: 8),
-      child: Text(category, style: AppTextStyles.btnTextStyle.copyWith(fontSize: 16, fontWeight: .w600, color: AppColors.primaryColor),),
+      padding: .symmetric(horizontal: 21,),
+      alignment: .center,
+      child: Text(category, style: AppTextStyles.btnTextStyle.copyWith(fontSize: 16, fontWeight: .w600, color: isSelected ? Colors.white : AppColors.primaryColor),),
     );
   }
 }
