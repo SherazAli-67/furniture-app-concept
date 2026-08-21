@@ -18,6 +18,12 @@ class AppData {
     ProductModel(id: 'BestSeller2', title: "Brown Chair", price: 125.5, isNew: true, type: 'Arm Chair', productImg: AppIcons.modernChair),
     ProductModel(id: 'BestSeller3', title: "Minimalist Chair", price: 299.9, isNew: true, type: 'Arm Chair', productImg: AppIcons.minimalistChair),
     ProductModel(id: 'BestSeller4', title: "Modern Chair", productImg: AppIcons.brownChair, price: 99.9, isNew: true, type: 'Arm Chair'),
+  ];
+
+  static List<String> get productCushions => [
+    AppIcons.productCushion1,
+    AppIcons.productCushion2,
+    AppIcons.productCushion3,
 
   ];
 }

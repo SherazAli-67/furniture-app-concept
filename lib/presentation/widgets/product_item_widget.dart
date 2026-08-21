@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furniture_app/core/app_colors.dart';
 import 'package:furniture_app/core/app_textstyles.dart';
 import 'package:furniture_app/core/models/product_model.dart';
+import 'package:furniture_app/presentation/widgets/product_rating_widget.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../router/app_router.dart';
@@ -50,17 +51,7 @@ class ProductItemWidget extends StatelessWidget{
                   Positioned(
                     bottom: 5,
                     right: 5,
-                    child: Container(
-                        decoration: BoxDecoration(color: AppColors.ratingBgColor, borderRadius: .circular(99)),
-                        padding: .symmetric(horizontal: 5, vertical: 2.5),
-                        child: Row(
-                          spacing: 3,
-                          children: [
-                            Icon(Icons.star_rate_rounded, color: AppColors.ratingAmberColor, size: 10,),
-                            Text('4.8', style: AppTextStyles.smallTextStyle.copyWith(fontSize: 10, color: AppColors.ratingAmberColor),)
-                          ],
-                        )
-                    ),),
+                    child: ProductRatingWidget(),),
                 ],
               ),
             ),

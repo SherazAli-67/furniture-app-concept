@@ -16,7 +16,11 @@ class AppIcons {
   static const minimalistChair = '${iconsPath}minimalist_chair.png';
   static const yellowChair = '${iconsPath}yellow_chair.png';
   static const brownChair = '${iconsPath}brown_chair.png';
+  static const productCushion1 = '${iconsPath}product_cushion1.png';
+  static const productCushion2 = '${iconsPath}product_cushion2.png';
+  static const productCushion3 = '${iconsPath}product_cushions.png';
 
   static const devProfileImg = '${iconsPath}dev.jpeg';
+
 
 }
